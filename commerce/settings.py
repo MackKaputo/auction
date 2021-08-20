@@ -26,7 +26,7 @@ SECRET_KEY = '6ps8j!crjgrxt34cqbqn7x&b3y%(fny8k8nh21+qa)%ws3fh!q'
 #DEBUG = True # For Development
 DEBUG = False #For production
 
-ALLOWED_HOSTS = ["https://auction-mack.herokuapp.com/","127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["auction-mack.herokuapp.com","127.0.0.1", "localhost"]
 
 
 # Application definition
@@ -124,6 +124,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+#===============================================
+# Adding this so heroku can serve static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#===============================================
+
 STATIC_URL = '/static/'
 
 # Adding STATICFILES_DIR
@@ -132,10 +137,6 @@ STATICFILES_DIR = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-#===============================================
-# Adding this so heroku can serve static files
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-#===============================================
 
 MEDIA_URL = '/media/'
 
