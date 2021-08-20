@@ -46,7 +46,7 @@ MIDDLEWARE = [
 
     #! Add this middleware
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -131,6 +131,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIR = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+#===============================================
+# Adding this so heroku can serve static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#===============================================
 
 MEDIA_URL = '/media/'
 
