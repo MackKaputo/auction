@@ -1,7 +1,7 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
+    <h2 style="padding-left: 1em;">Active Listings</h2>
     {% if user.is_authenticated %}
     <div class="auctions-list">
         {% for listing in content %}

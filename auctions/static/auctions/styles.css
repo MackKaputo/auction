@@ -4,6 +4,9 @@ body {
 }
 .project-name {
     font-weight: 2em;
+    border: tomato 1px solid;
+    border-radius: 3em;
+    text-align: center;
 }
 .nav {
     background-color: white;
