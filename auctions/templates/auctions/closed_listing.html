@@ -1,0 +1,27 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+        <div class="d-flex flex-row justify-content-center"  >
+            <div>
+                <h1>{{ this_listing.title }}</h1>
+                {% if this_listing.image %}
+                <img src="{{ this_listing.image }}" width="500">
+                {% endif %}
+            </div>
+            <div style="margin:7%">  
+                <h5><strong style="color:red">Closed </strong> at US ${{ this_listing.bid.bid_value }}</h5>
+                <p><strong>Description:</strong> {{ this_listing.description }}</p>
+                <p><strong>Category: </strong>{{ this_listing.category }}</p>
+                <p><strong>Posted by: </strong>{{ this_listing.owner }}</p>
+                {% if user == this_listing.bid.user %}
+                    <h3>You won this Bid </h3>
+                {% else %}
+                    <h3 style="color:green">{{ this_listing.bid.user }} won this Bid </h3>
+                {% endif %}
+            </div>
+            
+        </div>
+    
+    {% endif %}
+{% endblock %}

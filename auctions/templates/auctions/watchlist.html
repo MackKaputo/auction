@@ -1,0 +1,25 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>My Watchlist</h2>
+    {% if user.is_authenticated %}
+    <div class="d-flex p-2">
+        {% for watchlist in watchlists %}
+            <div style="margin: 40px">
+                <a href="{% url 'listing' watchlist.listing.id %}">
+                <h5>{{ watchlist.listing.title }}</h5>
+                </a>
+                {% if watchlist.listing.image %}
+                <img src="{{ watchlist.listing.image }}" width="250">
+                {% endif %}  
+                <p>{{ watchlist.listing.description }}</p>
+                <h5>US ${{ watchlist.listing.bid.bid_value }}</h5>
+                
+            </div>
+        {% empty %}
+            <li>The Watchlist is empty </li>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+{% endblock %}

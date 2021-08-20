@@ -1,0 +1,24 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+    {% if user.is_authenticated %}
+    <div class="auctions-list">
+        {% for listing in content %}
+            <div style="margin: 40px" class="bid">
+                <a href="{% url 'listing' listing.id %}">
+                <h5 style="text-align: center;">{{ listing.title }}</h5>
+                </a>
+                {% if listing.image %}
+                <img src="{{ listing.image }}" width="250">
+                {% endif %}  
+                <p style="text-align: center;">{{ listing.description }}</p>
+                <h5 style="text-align: center;">current bid: <span style="font-size: larger;">${{ listing.bid.bid_value }}</span></h5>
+            </div>
+        {% empty %}
+            <li>No Listings </li>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+{% endblock %}

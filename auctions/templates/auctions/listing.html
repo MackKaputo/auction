@@ -1,0 +1,53 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+        <div class="d-flex flex-row justify-content-center"  >
+            <div>
+                <h1>{{ this_listing.title }}</h1>
+                <form action="{% url 'listing' this_listing.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-primary mb-3" value="Watchlist" style="background-color: blueviolet">
+                </form>
+                {% if this_listing.image %}
+                <img src="{{ this_listing.image }}" width="500">
+                {% endif %}
+            </div>
+            <div style="margin:7%">  
+                <h5>Current price: US ${{ this_listing.bid.bid_value }}</h5>
+                <p><strong>Description:</strong> {{ this_listing.description }}</p>
+                <p><strong>Category: </strong>{{ this_listing.category }}</p>
+                <p><strong>Posted by: </strong>{{ this_listing.owner }}</p>
+                <form action="{% url 'newbid' this_listing.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="number" name="bid" class="form-control form-control-color">
+                    <input type="submit" value="Place a Bid" class="btn btn-primary mb-3" style="margin: 1em;">
+                </form>
+            </div>
+            <div>
+                <h4 style="text-align: center;">COMMENTS</h4>
+                <div class="comments">
+                    {% for comment in comments %}
+                    <div class="comment"><strong style="color: indigo;">{{ comment.user.username }}</strong> : {{ comment.text }}</div>
+                {% empty %}
+                    <li>No comment posted</li>
+                {% endfor %}
+                </div>
+                
+                <form action="{% url 'comment' this_listing.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="text" placeholder="comment here" name="comment">
+                    <input type="submit" value="comment">
+                </form>
+            </div>
+        </div>
+        
+        {% if user.username == this_listing.owner %}
+        <form action="{% url 'close' this_listing.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Close listing" style="background-color: red">
+        </form>
+        {% endif %}
+    
+    {% endif %}
+{% endblock %}
