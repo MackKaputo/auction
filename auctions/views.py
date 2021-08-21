@@ -78,28 +78,29 @@ class NewListingForm(forms.Form):
 @login_required(login_url="login")
 def new_listing(request):
     if request.method == "POST":
-        form = NewListingForm(request.POST)
-        if form.is_valid():
-            #Get the data
-            title = form.cleaned_data["title"]
-            description = form.cleaned_data["description"]
-            bid = Bid(bid_value=int(form.cleaned_data["bid"]))
-            bid.save()
-            image = form.cleaned_data["image"]
-            category = form.cleaned_data["category"]
-            #Get the username of user posting the data:
-            owner = request.user.get_username()      
-            
-            #Pass the data to the NewListing model to ba saved in database
-            listing = NewListing(title=title, description=description,
-            bid=bid, image=image, category=category, owner=owner )
-            listing.save()
-            
-            return redirect("index")
+        #print(" Posting some data ")
+        #print(request.POST)
+        #form = NewListingForm(request.POST)
+        #if form.is_valid():
+        #Get the data
+        title = request.POST["title"]
+        description = request.POST["description"]
+        bid = Bid(bid_value=int(request.POST["bid"]))
+        bid.save()
+        image = request.POST["image"]
+        category = request.POST["category"]
+        #Get the username of user posting the data:
+        owner = request.user.get_username()      
+        
+        #Pass the data to the NewListing model to ba saved in database
+        listing = NewListing(title=title, description=description,
+        bid=bid, image=image, category=category, owner=owner )
+        listing.save()
+        
+        return redirect("index")
 
-    return render(request, "auctions/newlisting.html",{
-        "form": NewListingForm().as_p()
-    }) 
+    return render(request, "auctions/newlisting.html")
+    #return redirect("newlisting") 
 
 @login_required(login_url="login")
 def listing(request, listing_id):
